@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Nachrichtenübersetzung",
+    "description": "Fügt jeder Nachricht eine Übersetzen-Schaltfläche hinzu; beim Klick wird die Nachricht an Google Übersetzer gesendet und das Ergebnis angezeigt.",
+    "detail": "docs/DETAIL.de.md"
+  }
+}

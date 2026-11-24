@@ -1,0 +1,118 @@
+export const namespace = 'dsh-message-translate'
+
+const en = {
+  translate: 'Translate with Google',
+  translating: 'Translating…',
+  google: 'Google Translate',
+  close: 'Hide translation',
+  retry: 'Try again',
+  toTarget: 'To {language}',
+  sourceToTarget: '{source} → {target}',
+  alreadyIn: 'Already in {language}.',
+  failedNetwork: 'Could not reach Google Translate. Check the network or proxy.',
+  failedHttp: 'Google Translate refused this request. Try again later.',
+  failedOther: 'Could not translate this message.',
+}
+
+export type LabelKey = keyof typeof en
+
+export const labels = {
+  en,
+  zh: {
+    translate: '用 Google 翻译',
+    translating: '正在翻译…',
+    google: 'Google 翻译',
+    close: '隐藏译文',
+    retry: '重试',
+    toTarget: '译为{language}',
+    sourceToTarget: '{source} → {target}',
+    alreadyIn: '已经是{language}。',
+    failedNetwork: '无法连接 Google 翻译，请检查网络或代理。',
+    failedHttp: 'Google 翻译拒绝了这次请求，请稍后重试。',
+    failedOther: '这条消息翻译失败。',
+  },
+  ja: {
+    translate: 'Google 翻訳で翻訳',
+    translating: '翻訳中…',
+    google: 'Google 翻訳',
+    close: '翻訳を隠す',
+    retry: '再試行',
+    toTarget: '{language}へ',
+    sourceToTarget: '{source} → {target}',
+    alreadyIn: 'すでに{language}です。',
+    failedNetwork: 'Google 翻訳に接続できません。ネットワークまたはプロキシを確認してください。',
+    failedHttp: 'Google 翻訳がリクエストを拒否しました。後でもう一度お試しください。',
+    failedOther: 'このメッセージを翻訳できませんでした。',
+  },
+  de: {
+    translate: 'Mit Google übersetzen',
+    translating: 'Wird übersetzt…',
+    google: 'Google Übersetzer',
+    close: 'Übersetzung ausblenden',
+    retry: 'Erneut versuchen',
+    toTarget: 'Nach {language}',
+    sourceToTarget: '{source} → {target}',
+    alreadyIn: 'Bereits auf {language}.',
+    failedNetwork: 'Google Übersetzer ist nicht erreichbar. Prüfe Netzwerk oder Proxy.',
+    failedHttp: 'Google Übersetzer hat die Anfrage abgelehnt. Versuche es später erneut.',
+    failedOther: 'Diese Nachricht konnte nicht übersetzt werden.',
+  },
+  es: {
+    translate: 'Traducir con Google',
+    translating: 'Traduciendo…',
+    google: 'Google Traductor',
+    close: 'Ocultar traducción',
+    retry: 'Reintentar',
+    toTarget: 'A {language}',
+    sourceToTarget: '{source} → {target}',
+    alreadyIn: 'Ya está en {language}.',
+    failedNetwork: 'No se pudo conectar con Google Traductor. Revisa la red o el proxy.',
+    failedHttp: 'Google Traductor rechazó la solicitud. Inténtalo más tarde.',
+    failedOther: 'No se pudo traducir este mensaje.',
+  },
+  fr: {
+    translate: 'Traduire avec Google',
+    translating: 'Traduction…',
+    google: 'Google Traduction',
+    close: 'Masquer la traduction',
+    retry: 'Réessayer',
+    toTarget: 'Vers {language}',
+    sourceToTarget: '{source} → {target}',
+    alreadyIn: 'Déjà en {language}.',
+    failedNetwork: 'Impossible de joindre Google Traduction. Vérifiez le réseau ou le proxy.',
+    failedHttp: 'Google Traduction a refusé la requête. Réessayez plus tard.',
+    failedOther: 'Impossible de traduire ce message.',
+  },
+  pt: {
+    translate: 'Traduzir com o Google',
+    translating: 'Traduzindo…',
+    google: 'Google Tradutor',
+    close: 'Ocultar tradução',
+    retry: 'Tentar novamente',
+    toTarget: 'Para {language}',
+    sourceToTarget: '{source} → {target}',
+    alreadyIn: 'Já está em {language}.',
+    failedNetwork: 'Não foi possível acessar o Google Tradutor. Verifique a rede ou o proxy.',
+    failedHttp: 'O Google Tradutor recusou a solicitação. Tente novamente mais tarde.',
+    failedOther: 'Não foi possível traduzir esta mensagem.',
+  },
+  ru: {
+    translate: 'Перевести через Google',
+    translating: 'Перевод…',
+    google: 'Google Переводчик',
+    close: 'Скрыть перевод',
+    retry: 'Повторить',
+    toTarget: 'На {language}',
+    sourceToTarget: '{source} → {target}',
+    alreadyIn: 'Уже на {language}.',
+    failedNetwork: 'Не удалось подключиться к Google Переводчик. Проверьте сеть или прокси.',
+    failedHttp: 'Google Переводчик отклонил запрос. Повторите попытку позже.',
+    failedOther: 'Не удалось перевести это сообщение.',
+  },
+} satisfies Record<string, Record<LabelKey, string>>
+
+declare module '@deepseek-ai/dsh-client-ui-slots' {
+  interface LocaleNamespaceMap {
+    'dsh-message-translate': LabelKey
+  }
+}

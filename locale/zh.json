@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "消息翻译",
+    "description": "在每条消息下添加翻译按钮，点击后把该条消息发给 Google 翻译并显示译文。",
+    "detail": "docs/DETAIL.zh.md"
+  }
+}

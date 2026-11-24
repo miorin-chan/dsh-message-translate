@@ -1,0 +1,99 @@
+{
+  "name": "@miorin/dsh-message-translate",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "description": "Adds a Translate action under each message; clicking sends that message to Google Translate and shows the result.",
+  "type": "module",
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "translation",
+    "google-translate"
+  ],
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "AGENTS.md",
+    "AGENTS.local.md",
+    "docs/README.md",
+    "docs/DETAIL.zh.md",
+    "docs/DETAIL.en.md",
+    "README.zh.md",
+    "DESIGN.md",
+    "CHANGELOG.md",
+    "docs/DETAIL.ja.md",
+    "docs/DETAIL.de.md",
+    "docs/DETAIL.es.md",
+    "docs/DETAIL.fr.md",
+    "docs/DETAIL.pt.md",
+    "docs/DETAIL.ru.md"
+  ],
+  "engines": {
+    "dsh": "0.2.2-rc.5"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-slots",
+        "@deepseek-ai/dsh-client-ui-renderer",
+        "@deepseek-ai/dsh-client-ui-chat",
+        "@deepseek-ai/dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "scripts": {
+    "build": "npm run build:tools && node scripts/build.mjs",
+    "build:tools": "tsc -p tsconfig.tools.json",
+    "prepare": "npm run build 1>&2",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "npm run build && npm run test:unit --",
+    "test:unit": "node --test",
+    "check": "npm run build:tools && npm run test:unit && npm run typecheck && node scripts/build.mjs --check && node scripts/sync-types.mjs --check"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.1.0",
+    "@deepseek-ai/dsh-client-locale": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-client-ui-chat": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-client-ui-conversation": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-client-ui-primitives": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-client-ui-renderer": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-client-ui-slots": "0.2.2-rc.5",
+    "@deepseek-ai/dsh-llm": "0.2.2-rc.5",
+    "@types/node": "22.20.5",
+    "@types/react": "~18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "esbuild": "0.28.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "typescript": "5.7.3"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-client-store": "^0.2.2-rc.5"
+  },
+  "homepage": "https://github.com/miorin-chan/dsh-message-translate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miorin-chan/dsh-message-translate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/miorin-chan/dsh-message-translate/issues"
+  }
+}

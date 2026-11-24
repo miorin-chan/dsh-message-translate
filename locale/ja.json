@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "メッセージ翻訳",
+    "description": "各メッセージに翻訳ボタンを追加し、クリック時にそのメッセージを Google 翻訳へ送って結果を表示します。",
+    "detail": "docs/DETAIL.ja.md"
+  }
+}

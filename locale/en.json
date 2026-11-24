@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Message translation",
+    "description": "Adds a Translate action under each message; clicking sends that message to Google Translate and shows the result.",
+    "detail": "docs/DETAIL.en.md"
+  }
+}

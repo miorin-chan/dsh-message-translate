@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Traducción de mensajes",
+    "description": "Añade un botón de traducción a cada mensaje; al pulsarlo se envía el mensaje a Google Traductor y se muestra el resultado.",
+    "detail": "docs/DETAIL.es.md"
+  }
+}
