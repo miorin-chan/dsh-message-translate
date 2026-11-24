@@ -10,3 +10,5 @@
   and add an open-state highlight.
 - Size a short user-message card to its content instead of the bubble's maximum width.
 - Show "Already in …" when the detected language matches the interface language.
+- Redesign the in-app translate glyph to match DSH's 1px icon weight and replace the bundle branding icon
+  with overlapping source/target speech bubbles harmonized with Session Atlas.

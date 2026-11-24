@@ -268,10 +268,13 @@ function failureText(t: Locale['t'], reason: TranslationFailure): string {
 
 function TranslateGlyph(): ReactNode {
   return (
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M2.4 3.4h6.2M5.5 2.1v1.3c0 2.6-1.5 4.8-3.4 5.9" />
-      <path d="M3.6 6.1c.8 1.7 2.1 3 3.7 3.8" />
-      <path d="M9.1 13.7 11.4 7.9l2.3 5.8M10 11.6h2.9" />
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M5.5 1.75V3.5" />
+      <path d="M1.75 3.5H9.25" />
+      <path d="M7.4 3.5C6.8 6.5 4.8 8.6 2 9.75" />
+      <path d="M3.6 5.1C4.5 7 6.1 8.5 8.2 9.5" />
+      <path d="M8.75 14.25L11.5 7.25L14.25 14.25" />
+      <path d="M9.6 12.1H13.4" />
     </svg>
   )
 }
