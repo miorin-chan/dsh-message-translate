@@ -1,7 +1,6 @@
 {
   "name": "@miorin/dsh-message-translate",
   "version": "0.1.0",
-  "private": true,
   "license": "MIT",
   "description": "Adds a Translate action under each message; clicking sends that message to Google Translate and shows the result.",
   "type": "module",
@@ -93,5 +92,9 @@
   },
   "bugs": {
     "url": "https://github.com/miorin-chan/dsh-message-translate/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
