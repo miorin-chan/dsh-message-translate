@@ -23,7 +23,7 @@ import { createPortal } from 'react-dom'
 import { Button, StateDot, Tooltip } from '@deepseek-ai/dsh-client-ui-primitives'
 import type { PropsLocale, PropsRuntime } from '@deepseek-ai/dsh-client-ui-slots'
 import type { ChatConversationViewNode, ChatNode, ChatSnapshot } from '@deepseek-ai/dsh-client-ui-chat/client'
-import type { MessageId } from '@deepseek-ai/dsh-llm/brand'
+import type { MessageId } from '@deepseek-ai/dsh-llm'
 import {
   extractAssistantText, extractUserText, sameLanguage, translateText,
 } from '../lib/translate.js'
