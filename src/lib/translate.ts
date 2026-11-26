@@ -20,6 +20,9 @@ export const MAX_CHUNK_LENGTH = 2800
 /** Languages Google accepts in `tl`; locale ids are normalized to these. */
 const TARGET_LANGUAGE = /^[a-z]{2,3}(?:-[A-Za-z]{2,4})?$/
 
+/** Default per-chunk request timeout so unreachable networks fail cleanly. */
+export const DEFAULT_TRANSLATE_TIMEOUT_MS = 15_000
+
 /** Structured failure so the UI never has to interpret an exception. */
 export type TranslationFailure = 'aborted' | 'empty' | 'http' | 'invalid-target' | 'network' | 'parse'
 
@@ -34,6 +37,8 @@ export interface TranslateOptions {
   readonly signal?: AbortSignal
   /** Injection point for tests; defaults to the browser fetch. */
   readonly fetchImpl?: FetchLike
+  /** Maximum duration in milliseconds per request chunk before failing as `network`. */
+  readonly timeoutMs?: number
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -158,10 +163,19 @@ export async function translateText(
   if (!isTargetLanguage(target)) return { ok: false, reason: 'invalid-target' }
 
   const fetchImpl: FetchLike = options.fetchImpl ?? fetch
+  const timeoutMs = options.timeoutMs ?? DEFAULT_TRANSLATE_TIMEOUT_MS
+  const callerAborted = (): boolean => options.signal?.aborted === true
   const translated: string[] = []
   let detected: string | undefined
 
   for (const chunk of chunks) {
+    if (callerAborted()) return { ok: false, reason: 'aborted' }
+    const requestController = new AbortController()
+    const onCallerAbort = () => { requestController.abort() }
+    options.signal?.addEventListener('abort', onCallerAbort, { once: true })
+    const timer = timeoutMs > 0
+      ? setTimeout(() => { requestController.abort() }, timeoutMs)
+      : undefined
     let response: Response
     try {
       response = await fetchImpl(
@@ -169,13 +183,16 @@ export async function translateText(
         {
           method: 'POST',
           body: new URLSearchParams({ q: chunk }),
-          ...(options.signal === undefined ? {} : { signal: options.signal }),
+          signal: requestController.signal,
         },
       )
     } catch {
-      return options.signal?.aborted === true
+      return callerAborted()
         ? { ok: false, reason: 'aborted' }
         : { ok: false, reason: 'network' }
+    } finally {
+      if (timer !== undefined) clearTimeout(timer)
+      options.signal?.removeEventListener('abort', onCallerAbort)
     }
 
     if (!response.ok) return { ok: false, reason: 'http' }

@@ -203,17 +203,19 @@ function useTranslation(text: string, settings: TranslationSettings): Translatio
   const [status, setStatus] = useState<TranslationStatus>({ kind: 'idle' })
   const abortRef = useRef<AbortController | null>(null)
   const targetRef = useRef(settings.target)
+  const textRef = useRef(text)
 
   useEffect(() => () => { abortRef.current?.abort() }, [])
 
-  // A locale switch retires the old result instead of relabeling it.
+  // A locale switch or message text update retires the old result instead of relabeling it.
   useEffect(() => {
-    if (targetRef.current === settings.target) return
+    if (targetRef.current === settings.target && textRef.current === text) return
     targetRef.current = settings.target
+    textRef.current = text
     abortRef.current?.abort()
     setStatus({ kind: 'idle' })
     setOpen(false)
-  }, [settings.target])
+  }, [settings.target, text])
 
   const run = (): void => {
     abortRef.current?.abort()
@@ -383,7 +385,8 @@ function useCardHost(anchor: () => HTMLElement | null): HTMLElement | null {
 
 export function AssistantTranslateAction(props: PropsRuntime<'conversation.chat.assistant-actions'> & Locale & TranslationInjected): ReactNode {
   const { messageId, useChat, t, translationTarget } = props
-  const text = useChat(chat => assistantTextOf(chat, messageId))
+  const cachedNodeKey = useRef<string | null>(null)
+  const text = useChat(chat => assistantTextOf(chat, messageId, cachedNodeKey))
   if (text === '') return null
   return <AssistantSeat text={text} settings={translationTarget()} t={t} />
 }
@@ -396,10 +399,22 @@ function isUserMessageNode(node: ChatConversationViewNode | undefined): node is 
   return node !== undefined && (node.kind === 'user' || node.kind === 'steering')
 }
 
-function assistantTextOf(snapshot: ChatSnapshot, messageId: MessageId): string {
+function assistantTextOf(
+  snapshot: ChatSnapshot,
+  messageId: MessageId,
+  cachedNodeKey: { current: string | null },
+): string {
+  const knownKey = cachedNodeKey.current
+  if (knownKey !== null) {
+    const cached = snapshot.nodes.get(knownKey)
+    if (cached !== undefined && isAssistantStepNode(cached) && cached.data.finalNode?.messageId === messageId) {
+      return extractAssistantText(cached.data.blocks)
+    }
+  }
   for (const node of snapshot.nodes.values()) {
     if (!isAssistantStepNode(node)) continue
     if (node.data.finalNode?.messageId !== messageId) continue
+    cachedNodeKey.current = node.key
     return extractAssistantText(node.data.blocks)
   }
   return ''

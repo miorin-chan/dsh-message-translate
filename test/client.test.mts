@@ -220,4 +220,11 @@ test('reports request and parsing failures without throwing', async () => {
     signal: controller.signal,
     fetchImpl: async () => { throw new Error('aborted') },
   }), { ok: false, reason: 'aborted' })
+
+  assert.deepEqual(await translateText('hi', 'en', {
+    timeoutMs: 10,
+    fetchImpl: (_url, init) => new Promise((_resolve, reject) => {
+      init.signal.addEventListener('abort', () => reject(new Error('timed out')), { once: true })
+    }),
+  }), { ok: false, reason: 'network' })
 })
