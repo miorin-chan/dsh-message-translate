@@ -4,6 +4,14 @@
 
 在每条消息下添加翻译按钮，点击后把该条消息发给 Google 翻译并就地显示译文。
 
+## 实拍截图
+
+译文卡片位于原消息下方，标出了从英语到中文的翻译方向。
+
+| | 浅色 | 深色 |
+| --- | --- | --- |
+| 翻译卡片 | ![英文原消息下方的中文译文卡片（浅色）](docs/assets/screenshots/main-light.png) | ![英文原消息下方的中文译文卡片（深色）](docs/assets/screenshots/main-dark.png) |
+
 ## 安装
 
 需要 DeepSeek Harness 0.2.2-rc.5 或更新版本。

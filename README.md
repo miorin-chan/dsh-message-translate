@@ -4,6 +4,15 @@
 
 Adds a Translate action under each message; clicking sends that message to Google Translate and shows the result.
 
+## Screenshots
+
+The card below the original message shows the English-to-Chinese translation.
+The screenshots show the Chinese interface.
+
+| | Light | Dark |
+| --- | --- | --- |
+| Translation card | ![Translation card below the original English message in the light theme](docs/assets/screenshots/main-light.png) | ![Translation card below the original English message in the dark theme](docs/assets/screenshots/main-dark.png) |
+
 ## Install
 
 Requires DeepSeek Harness 0.2.2-rc.5 or newer.
